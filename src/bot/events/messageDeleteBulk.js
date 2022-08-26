@@ -38,12 +38,14 @@ async function paste (messages, guildID) {
     sa
       .post(process.env.PASTE_CREATE_ENDPOINT)
       .set('Content-Type', 'text/plain')
-      .send(pasteString || 'An error has occurred while fetching pastes. Please contact the bot author.')
+      .send({
+        content: pasteString || 'An error has occurred while fetching pastes. Please contact the bot author.'
+      })
       .end((err, res) => {
-        if (!err && res.body && res.statusCode === 200 && res.body.key) {
+        if (!err && res.body && res.statusCode === 200 && res.body.result.key) {
           messageDeleteBulkEvent.embeds[0].fields.push({
             name: 'Link',
-            value: `https://hastebin.skyra.pw/${res.body.key}.txt`
+            value: `https://nekobin.com/${res.body.result.key}`
           })
           send(messageDeleteBulkEvent)
         } else {
