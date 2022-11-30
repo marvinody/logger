@@ -6,7 +6,8 @@ const CHANNEL_TYPE_MAP = {
   2: 'Voice channel',
   4: 'Category channel',
   5: 'Announcement channel',
-  13: 'Stage channel'
+  13: 'Stage channel',
+  15: 'Forum channel'
 }
 
 const canUseExternal = guild => {
@@ -107,6 +108,7 @@ module.exports = {
           // using `` to surround topic because topic can be just spaces
           continue
         }
+        if (changedKey === 'tags') continue
         const changes = transformAuditLogEntry(changedKey, log.before[changedKey], log.after[changedKey])
         channelUpdateEvent.embeds[0].fields.push({
           name: toTitleCase(changedKey),
@@ -193,6 +195,10 @@ module.exports = {
           }
         })
       }
+    }
+
+    if (channelUpdateEvent.embeds[0].fields.length === 1) { // if there is no change detected
+      return
     }
 
     if (log && user) {
