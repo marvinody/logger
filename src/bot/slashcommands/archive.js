@@ -39,7 +39,7 @@ module.exports = {
     } catch (_) {}
     sa
       .post(process.env.PASTE_CREATE_ENDPOINT)
-      .set('Authorization', process.env.PASTE_CREATE_TOKEN)
+      .set('apikey', process.env.PASTE_CREATE_TOKEN)
       .set('Content-Type', 'text/plain')
       .send(pasteString || 'No messages were able to be archived')
       .end((err, res) => {
@@ -47,7 +47,7 @@ module.exports = {
           interaction.editOriginalMessage({
             embeds: [{
               title: 'Success',
-              description: `Archived ${fetchedMessages.length} messages: https://haste.logger.bot/${res.body.key}.txt`,
+              description: `Archived ${fetchedMessages.length} messages: https://haste-server.deploy.sadpanda.moe/${res.body.key}`,
               thumbnail: {
                 url: interaction.member.user.dynamicAvatarURL(null, 64)
               },

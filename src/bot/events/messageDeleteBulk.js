@@ -37,6 +37,7 @@ async function paste (messages, guildID) {
   if (pasteString) {
     sa
       .post(process.env.PASTE_CREATE_ENDPOINT)
+      .set('apikey', process.env.PASTE_CREATE_TOKEN)
       .send({
         content: pasteString || 'An error has occurred while fetching pastes. Please contact the bot author.'
       })
@@ -44,7 +45,7 @@ async function paste (messages, guildID) {
         if (!err && res.body && res.statusCode === 201 && res.body.result.key) {
           messageDeleteBulkEvent.embeds[0].fields.push({
             name: 'Link',
-            value: `https://nekobin.com/${res.body.result.key}`
+            value: `https://haste-server.deploy.sadpanda.moe/${res.body.key}`
           })
           send(messageDeleteBulkEvent)
         } else {

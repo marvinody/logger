@@ -79,7 +79,6 @@ module.exports = async (guildID, channelID) => {
       await webhookCache.setWebhook(channelID, newHook.id, newHook.token)
       await cacheGuild(guildID)
     } else {
-      console.log(newHook)
       global.logger.warn('Webhook "created" is invalid, please inspect')
     }
   }
