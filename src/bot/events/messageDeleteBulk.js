@@ -42,7 +42,7 @@ async function paste (messages, guildID) {
         content: pasteString || 'An error has occurred while fetching pastes. Please contact the bot author.'
       })
       .end((err, res) => {
-        if (!err && res.body && res.statusCode === 201 && res.body.result.key) {
+        if (!err && res.body && res.statusCode === 200 && res.body.key) {
           messageDeleteBulkEvent.embeds[0].fields.push({
             name: 'Link',
             value: `https://haste-server.deploy.sadpanda.moe/${res.body.key}`
