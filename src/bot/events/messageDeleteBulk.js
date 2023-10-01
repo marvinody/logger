@@ -42,6 +42,8 @@ async function paste (messages, guildID) {
         content: pasteString || 'An error has occurred while fetching pastes. Please contact the bot author.'
       })
       .end((err, res) => {
+        console.log(res)
+        console.log(res.body)
         if (!err && res.body && res.statusCode === 200 && res.body.key) {
           messageDeleteBulkEvent.embeds[0].fields.push({
             name: 'Link',
