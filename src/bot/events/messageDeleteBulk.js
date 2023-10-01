@@ -38,9 +38,7 @@ async function paste (messages, guildID) {
     sa
       .post(process.env.PASTE_CREATE_ENDPOINT)
       .set('apikey', process.env.PASTE_CREATE_TOKEN)
-      .send({
-        content: pasteString || 'An error has occurred while fetching pastes. Please contact the bot author.'
-      })
+      .send(pasteString || 'An error has occurred while fetching pastes. Please contact the bot author.')
       .end((err, res) => {
         console.log(res)
         console.log(res.body)
